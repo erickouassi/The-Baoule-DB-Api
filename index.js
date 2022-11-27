@@ -105,87 +105,6 @@ else if (req.url === "/v1/names" && req.method === "GET") {
          // send the data
          res.end(JSON.stringify(tomorrowData));
      }
-     //
-  // /api/v1/sunday : GET
-  else if (req.url === "/v1/sunday" &&
-  req.method === "GET") {
-         // get sunday data.
-        const sundayData = await new AppData().getSundayData();
-        // set the status code, and content-type
-        res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*"  });
-        // send the data
-        res.end(JSON.stringify(sundayData));
-    }
-    //
-    // /api/v1/monday : GET
-    else if (req.url === "/v1/monday" &&
-  req.method === "GET") {
-         // get monday data.
-        const mondayData = await new AppData().getMondayData();
-        // set the status code, and content-type
-        res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*"  });
-        // send the data
-        res.end(JSON.stringify(mondayData));
-    }
-    //
-    // /api/v1/tuesday : GET
-    else if (req.url === "/v1/tuesday" &&
-  req.method === "GET") {
-         // get tuesday data.
-        const tuesdayData = await new AppData().getTuesdayData();
-        // set the status code, and content-type
-        res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*"  });
-        // send the data
-        res.end(JSON.stringify(tuesdayData));
-    }
-    //
-// /api/v1/wednesday : GET
-else if (req.url === "/v1/wednesday" &&
-req.method === "GET") {
-     // get wednesday data.
-    const wednesdayData = await new AppData().getWednesdayData();
-    // set the status code, and content-type
-    res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
-    "Access-Control-Allow-Origin": "*"  });
-    // send the data
-    res.end(JSON.stringify(wednesdayData));
-}
-//
-// /v1 : GET thursday Data
-else if (req.url === "/v1/thursday" && req.method === "GET") {
-    // get thursday data.
-   const datathursday = await new AppData().getThursdayData();
-   // set the status code, and content-type
-   res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
-   "Access-Control-Allow-Origin": "*"  });
-   // send the data
-   res.end(JSON.stringify(datathursday));
-}
-//
-   // /v1 : GET friday Data
-else if (req.url === "/v1/friday" && req.method === "GET") {
-    // get friday data.
-   const datafriday = await new AppData().getFridayData();
-   // set the status code, and content-type
-   res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
-   "Access-Control-Allow-Origin": "*"  });
-   // send the data
-   res.end(JSON.stringify(datafriday));
-}
-//
-// /v1 : GET saturday Data
-else if (req.url === "/v1/saturday" && req.method === "GET") {
-    // get saturday data.
-   const datasaturday = await new AppData().getSaturdayData();
-   // set the status code, and content-type
-   res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
-   "Access-Control-Allow-Origin": "*"  });
-   // send the data
-   res.end(JSON.stringify(datasaturday));
-}
 //
 	  // /api/v1/today_name : GET
       else if (req.url === "/v1/today_name" &&
@@ -199,6 +118,39 @@ else if (req.url === "/v1/saturday" && req.method === "GET") {
             res.end(JSON.stringify(todayDataName));
         }
         //
+                // /api/v1/today_day : GET
+      else if (req.url === "/v1/today_day" &&
+      req.method === "GET") {
+             // get today data.
+            const dayDataName = await new AppData().getDayDataName();
+            // set the status code, and content-type
+            res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
+            "Access-Control-Allow-Origin": "*"  });
+            // send the data
+            res.end(JSON.stringify(dayDataName));
+        }
+        //
+         // /v1/date/:sunday : GET
+ else if (req.url.match(/\/v1\/day\/[a-zA-Z]*/) &&
+ req.method === "GET") {
+       try {
+           // get date sunday from url
+           const X = req.url.split("/")[3];
+           // get a single data
+           const singleData = await new AppData().getSingleData(X);
+           // set the status code and content-type
+           res.writeHead(200, { "Content-Type": "application/json; charset=utf-8",
+           "Access-Control-Allow-Origin": "*"  });
+           // send the data
+           res.end(JSON.stringify(singleData));
+       } catch (error) {
+           // set the status code and content-type
+           res.writeHead(404, { "Content-Type": "application/json; charset=utf-8",
+           "Access-Control-Allow-Origin": "*"  });
+           // send the error
+           res.end(JSON.stringify({ message: error }));
+       }
+   }
 // ===> End of English
 
 // Add above
